@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenPath – Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="confetti-container" id="confetti"></div>
+
+    <!-- CONFIRMATION OVERLAY -->
+    <div id="confirm-overlay">
+        <div class="thankyou-card-wrapper">
+            <div class="card thankyou-card">
+                <div class="confirm-icon">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <h2 class="overlay-title">Valider cette page ?</h2>
+                <p class="overlay-text">
+                    Vos réponses seront enregistrées.<br>
+                    Vous pourrez continuer vers la page suivante.
+                </p>
+                <div class="action-buttons">
+                    <button class="action-btn btn-continue" onclick="confirmValidate()">
+                        <i class="fa-solid fa-check"></i> Valider
+                    </button>
+                    <button class="action-btn btn-done" onclick="closeConfirmOverlay()">
+                        <i class="fa-solid fa-arrow-left"></i> Continuer à remplir
+                    </button>
+                    <button class="action-btn btn-quit" onclick="quitApp()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Quitter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THANKYOU OVERLAY -->
+    <div id="thankyou-overlay">
+        <div class="thankyou-card-wrapper">
+            <div class="card thankyou-card">
+                <div class="check-ring">
+                    <svg viewBox="0 0 50 50">
+                        <polyline points="10,26 21,37 40,14" />
+                    </svg>
+                </div>
+                <h2 class="overlay-title">Super !</h2>
+                <p class="overlay-text">
+                    Vos réponses ont été enregistrées.<br>
+                    Continuez pour donner votre avis sur la suite !
+                </p>
+                <div class="action-buttons">
+                    <a href="page2.html" class="action-btn btn-continue">
+                        <i class="fa-solid fa-arrow-right"></i> Continuer
+                    </a>
+                    <button class="action-btn btn-done" onclick="closeOverlay()">
+                        <i class="fa-solid fa-check"></i> Fermer
+                    </button>
+                    <button class="action-btn btn-quit" onclick="quitApp()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Quitter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE -->
+    <div class="page-wrapper">
+        <div class="header">
+            <div class="logo-area">
+                <img id="mascot_sleeping" alt="mascot" src="assets/mascot_sleeping.png">
+                <h1 class="app-title">GreenPath</h1>
+            </div>
+            <p class="app-subtitle"><i class="fa-solid fa-seedling"></i> Donnez votre avis sur nos interfaces !</p>
+        </div>
+
+        <img id="piroutte" src="assets/piroutte_transparent.gif" alt="mascot">
+
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Page 1 / 3 : Logo et Page d'accueil</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:33%;"></div>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <!-- SECTION : LOGO -->
+            <div class="section-header">
+                <i class="fa-solid fa-leaf section-icon"></i>
+                <div class="section-number">1</div>
+                <h2 class="section-title">Choix du Logo</h2>
+            </div>
+            <p class="section-desc">
+                Voici 3 variantes du logo GreenPath. Observez bien chaque version avant de choisir votre préférée !
+            </p>
+
+            <div class="images-grid-labeled">
+                <div class="mockup-item">
+                    <img src="assets/logo_no_detail.png" alt="Logo Variante 1" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-leaf"></i> Logo V1 — Épuré</div>
+                </div>
+                <div class="mockup-item">
+                    <img src="assets/logo_detail.png" alt="Logo Variante 2" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-leaf"></i> Logo V2 — Détaillé</div>
+                </div>
+                <div class="mockup-item">
+                    <img src="assets/logo_super_detail_transparent.png" alt="Logo Variante 3" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-leaf"></i> Logo V3 — Illustré</div>
+                </div>
+            </div>
+
+            <!-- Q1 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">1</span>
+                    Laquelle de ces 3 variantes de logo préférez-vous ?
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="logo_prefer" id="logo1" value="Logo V1 - Épuré">
+                        <label class="option-label" for="logo1">
+                            <i class="fa-solid fa-leaf option-icon"></i>
+                            <div>
+                                <strong>Variante 1</strong>
+                                <small class="option-sub">Simple et épuré — minimaliste</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="logo_prefer" id="logo2" value="Logo V2 - Détaillé">
+                        <label class="option-label" for="logo2">
+                            <i class="fa-solid fa-tree option-icon"></i>
+                            <div>
+                                <strong>Variante 2</strong>
+                                <small class="option-sub">Détaillé — avec plus d'éléments visuels</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="logo_prefer" id="logo3" value="Logo V3 - Illustré avec mascotte">
+                        <label class="option-label" for="logo3">
+                            <i class="fa-solid fa-dragon option-icon"></i>
+                            <div>
+                                <strong>Variante 3</strong>
+                                <small class="option-sub">Illustré — avec la mascotte intégrée</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- SECTION : HOME PAGE -->
+            <div class="section-header" style="margin-top:8px;">
+                <i class="fa-solid fa-house section-icon"></i>
+                <div class="section-number">2</div>
+                <h2 class="section-title">Page d'Accueil</h2>
+            </div>
+            <p class="section-desc">
+                Voici 3 propositions pour la page d'accueil de GreenPath : la première chose que vous verrez en ouvrant
+                l'app !
+            </p>
+
+            <div class="images-grid-labeled">
+                <div class="mockup-item">
+                    <img src="assets/page1.png" alt="Home Variante 1" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-calendar-days"></i> V1 — Calendrier principal
+                    </div>
+                </div>
+                <div class="mockup-item">
+                    <img src="assets/page2.png" alt="Home Variante 2" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-list-check"></i> V2 — Étapes et mondes
+                    </div>
+                </div>
+                <div class="mockup-item">
+                    <img src="assets/page3.png" alt="Home Variante 3" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-chart-line"></i> V3 — Stats et Mood du jour</div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">2</span>
+                    Que voulez-vous voir en premier sur la page d'accueil ?
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="home_prefer" id="home1" value="V1 - Calendrier des missions">
+                        <label class="option-label" for="home1">
+                            <i class="fa-solid fa-calendar-days option-icon"></i>
+                            <div>
+                                <strong>Variante 1</strong>
+                                <small class="option-sub">Calendrier avec le suivi des missions du mois</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="home_prefer" id="home2"
+                            value="V2 - Statistiques et étapes des mondes">
+                        <label class="option-label" for="home2">
+                            <i class="fa-solid fa-list-check option-icon"></i>
+                            <div>
+                                <strong>Variante 2</strong>
+                                <small class="option-sub">Statistiques + étapes des mondes</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="home_prefer" id="home3" value="V3 - Stats et Mood uniquement">
+                        <label class="option-label" for="home3">
+                            <i class="fa-solid fa-chart-line option-icon"></i>
+                            <div>
+                                <strong>Variante 3</strong>
+                                <small class="option-sub">Stats de progression + humeur et mood du jour
+                                    uniquement</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Q3 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">3</span>
+                    Quels éléments de la page d'accueil sont les plus importants pour vous ?
+                    <small class="hint-text">(Plusieurs choix possibles)</small>
+                </label>
+                <div class="options-grid two-col">
+                    <div class="option-item">
+                        <input type="checkbox" name="home_elements" id="el_calendar" value="Calendrier des missions">
+                        <label class="option-label" for="el_calendar">
+                            <i class="fa-solid fa-calendar option-icon"></i> Calendrier des missions
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="home_elements" id="el_progress" value="Barre de progression">
+                        <label class="option-label" for="el_progress">
+                            <i class="fa-solid fa-bars-progress option-icon"></i> Barre de progression
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="home_elements" id="el_coins" value="Affichage XP et Coins">
+                        <label class="option-label" for="el_coins">
+                            <i class="fa-solid fa-coins option-icon"></i> Affichage XP et Coins
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="home_elements" id="el_mood" value="Mood du jour">
+                        <label class="option-label" for="el_mood">
+                            <i class="fa-solid fa-face-smile option-icon"></i> Mood du jour
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="home_elements" id="el_plant" value="Aperçu du jardin">
+                        <label class="option-label" for="el_plant">
+                            <i class="fa-solid fa-seedling option-icon"></i> Aperçu du jardin
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" name="home_elements" id="el_missions" value="Missions du jour">
+                        <label class="option-label" for="el_missions">
+                            <i class="fa-solid fa-star option-icon"></i> Missions du jour
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Q4 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">4</span>
+                    Pourquoi cette préférence ? Des critiques, attentes ou idées d'amélioration pour l'accueil ?
+                </label>
+                <textarea name="home_comments" class="styled-textarea"
+                    placeholder="Ex : J'aimerais voir mes plantes directement sur l'accueil, le calendrier est trop chargé..."></textarea>
+            </div>
+
+            <div class="nav-buttons-triple">
+                <span class="nav-placeholder">
+                    <i class="fa-solid fa-seedling"></i> Début
+                </span>
+                <button class="btn-validate" id="validateBtn" onclick="showConfirmOverlay(event)">
+                    <i class="fa-solid fa-check"></i> Valider
+                </button>
+                <a href="page2.html" class="btn btn-primary" onclick="saveAndNext(event,'page2.html')">
+                    Suivant <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="page-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        localStorage.removeItem('gp_responses');
+        localStorage.removeItem('gp_coins');
+    </script>
+    <script src="shared.js"></script>
+</body>
+
+</html>

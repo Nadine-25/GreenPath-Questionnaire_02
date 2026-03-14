@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenPath – Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="confetti-container" id="confetti"></div>
+
+    <!-- CONFIRMATION OVERLAY -->
+    <div id="confirm-overlay">
+        <div class="thankyou-card-wrapper">
+            <div class="card thankyou-card">
+                <div class="confirm-icon">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <h2 class="overlay-title">Valider cette page ?</h2>
+                <p class="overlay-text">
+                    Vos réponses seront enregistrées.<br>
+                    Vous pourrez continuer vers la page suivante.
+                </p>
+                <div class="action-buttons">
+                    <button class="action-btn btn-continue" onclick="confirmValidate()">
+                        <i class="fa-solid fa-check"></i> Valider
+                    </button>
+                    <button class="action-btn btn-done" onclick="closeConfirmOverlay()">
+                        <i class="fa-solid fa-arrow-left"></i> Continuer à remplir
+                    </button>
+                    <button class="action-btn btn-quit" onclick="quitApp()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Quitter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THANKYOU OVERLAY -->
+    <div id="thankyou-overlay">
+        <div class="thankyou-card-wrapper">
+            <div class="card thankyou-card">
+                <div class="check-ring">
+                    <svg viewBox="0 0 50 50">
+                        <polyline points="10,26 21,37 40,14" />
+                    </svg>
+                </div>
+                <h2 class="overlay-title">Excellent !</h2>
+                <p class="overlay-text">
+                    Vos réponses ont été enregistrées.<br>
+                    Plus qu'une page — vous êtes presque au bout !
+                </p>
+                <div class="action-buttons">
+                    <a href="page3.html" class="action-btn btn-continue">
+                        <i class="fa-solid fa-arrow-right"></i> Continuer
+                    </a>
+                    <button class="action-btn btn-done" onclick="closeOverlay()">
+                        <i class="fa-solid fa-check"></i> Fermer
+                    </button>
+                    <button class="action-btn btn-quit" onclick="quitApp()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Quitter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE -->
+    <div class="page-wrapper">
+        <div class="header">
+            <div class="logo-area">
+                <img id="mascot_sleeping" alt="mascot" src="assets/mascot_sleeping.png">
+                <h1 class="app-title">GreenPath</h1>
+            </div>
+            <p class="app-subtitle"><i class="fa-solid fa-seedling"></i> Donnez votre avis sur nos interfaces !</p>
+        </div>
+
+        <img id="piroutte" src="assets/piroutte_transparent.gif" alt="mascot">
+
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Page 2 / 3 : Jardin, Boutique et Mécaniques</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:66%;"></div>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <!-- SECTION : JARDIN / FORÊT -->
+            <div class="section-header">
+                <i class="fa-solid fa-tree section-icon"></i>
+                <div class="section-number">1</div>
+                <h2 class="section-title">Page Forêt / Jardin Virtuel</h2>
+            </div>
+            <p class="section-desc">
+                La page forêt est le cœur de GreenPath — votre jardin virtuel grandissant au fil de vos missions !
+            </p>
+
+            <div style="display:flex; justify-content:center; margin-bottom:22px;">
+                <div class="mockup-item" style="max-width:280px; width:100%;">
+                    <img src="assets/forest_page.png" alt="Page Forêt" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-tree"></i> Page Forêt / Jardin virtuel</div>
+                </div>
+            </div>
+
+            <!-- Q1 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">1</span>
+                    Aimez-vous le concept de la page forêt / jardin virtuel ?
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="forest_like" id="forest_yes" value="Oui, j'adore !">
+                        <label class="option-label" for="forest_yes">
+                            <i class="fa-solid fa-heart option-icon" style="color:var(--pink-accent);"></i>
+                            <div>
+                                <strong>Oui, j'adore !</strong>
+                                <small class="option-sub">Le concept me plaît vraiment</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="forest_like" id="forest_maybe" value="Oui, mais à améliorer">
+                        <label class="option-label" for="forest_maybe">
+                            <i class="fa-solid fa-face-meh option-icon" style="color:var(--coin-yellow);"></i>
+                            <div>
+                                <strong>Oui, mais à améliorer</strong>
+                                <small class="option-sub">Le concept est bon mais quelques points me dérangent</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="forest_like" id="forest_no" value="Non, pas convaincu(e)"
+                            onclick="toggleConditional('forest_why_no', true)">
+                        <label class="option-label" for="forest_no">
+                            <i class="fa-solid fa-thumbs-down option-icon" style="color:var(--pink-accent);"></i>
+                            <div>
+                                <strong>Non, pas convaincu(e)</strong>
+                                <small class="option-sub">Le concept ne m'attire pas</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="conditional-input" id="forest_why_no">
+                    <textarea name="forest_why_no_text" class="styled-textarea"
+                        placeholder="Pourquoi le concept de forêt ne vous convainc pas ? Qu'est-ce qui manque ?"></textarea>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- SECTION : BOUTIQUE -->
+            <div class="section-header" style="margin-top:8px;">
+                <i class="fa-solid fa-store section-icon"></i>
+                <div class="section-number">2</div>
+                <h2 class="section-title">Page Boutique</h2>
+            </div>
+            <p class="section-desc">
+                La boutique vous permet d'acheter des plantes et objets décoratifs pour votre jardin avec vos coins
+                gagnés.
+            </p>
+
+            <div style="display:flex; justify-content:center; margin-bottom:22px;">
+                <div class="mockup-item" style="max-width:280px; width:100%;">
+                    <img src="assets/forest_page_shop.png" alt="Page Boutique" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-store"></i> Page Boutique de plantes</div>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">2</span>
+                    Aimez-vous le concept de la boutique de plantes ?
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="shop_like" id="shop_yes" value="Oui, j'adore !">
+                        <label class="option-label" for="shop_yes">
+                            <i class="fa-solid fa-heart option-icon" style="color:var(--pink-accent);"></i>
+                            <div>
+                                <strong>Oui, j'adore !</strong>
+                                <small class="option-sub">Acheter des plantes avec mes coins, c'est motivant</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="shop_like" id="shop_maybe" value="Oui, mais à améliorer">
+                        <label class="option-label" for="shop_maybe">
+                            <i class="fa-solid fa-face-meh option-icon" style="color:var(--coin-yellow);"></i>
+                            <div>
+                                <strong>Oui, mais à améliorer</strong>
+                                <small class="option-sub">L'idée est bonne mais quelque chose me dérange</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="shop_like" id="shop_no" value="Non, pas convaincu(e)"
+                            onclick="toggleConditional('shop_why_no', true)">
+                        <label class="option-label" for="shop_no">
+                            <i class="fa-solid fa-thumbs-down option-icon" style="color:var(--pink-accent);"></i>
+                            <div>
+                                <strong>Non, pas convaincu(e)</strong>
+                                <small class="option-sub">Je ne vois pas l'intérêt d'une boutique ici</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="conditional-input" id="shop_why_no">
+                    <textarea name="shop_why_no_text" class="styled-textarea"
+                        placeholder="Pourquoi la boutique ne vous convainc pas ?"></textarea>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- SECTION : MÉCANIQUES DE JEU -->
+            <div class="section-header" style="margin-top:8px;">
+                <i class="fa-solid fa-gamepad section-icon"></i>
+                <div class="section-number">3</div>
+                <h2 class="section-title">Mécaniques de Jeu</h2>
+            </div>
+            <p class="section-desc">
+                Voici quelques mécaniques de gameplay envisagées pour GreenPath. Dites-nous ce que vous en pensez !
+            </p>
+
+            <!-- Q3 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">3</span>
+                    Seriez-vous intéressé(e) par des missions personnalisées que vous créez vous-même ?
+                    <small class="hint-text">Ex : "Je veux faire 30 min de sport chaque jour" — vous définissez
+                        l'objectif</small>
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="custom_missions" id="cm_yes" value="Oui, très intéressé(e)">
+                        <label class="option-label" for="cm_yes">
+                            <i class="fa-solid fa-wand-magic-sparkles option-icon"></i>
+                            <div>
+                                <strong>Oui, très intéressé(e) !</strong>
+                                <small class="option-sub">Je veux pouvoir créer mes propres défis</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="custom_missions" id="cm_maybe"
+                            value="Oui, si c'est simple à utiliser">
+                        <label class="option-label" for="cm_maybe">
+                            <i class="fa-solid fa-sliders option-icon"></i>
+                            <div>
+                                <strong>Oui, si c'est simple</strong>
+                                <small class="option-sub">Seulement si l'interface est intuitive</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="custom_missions" id="cm_no"
+                            value="Non, les missions prédéfinies me suffisent">
+                        <label class="option-label" for="cm_no">
+                            <i class="fa-solid fa-list-check option-icon"></i>
+                            <div>
+                                <strong>Non, les missions fixes me suffisent</strong>
+                                <small class="option-sub">Je préfère des missions déjà définies par l'app</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="custom_missions" id="cm_indiff"
+                            value="Peu importe, l'absence ne me dérangerait pas">
+                        <label class="option-label" for="cm_indiff">
+                            <i class="fa-solid fa-minus option-icon"></i>
+                            <div>
+                                <strong>Indifférent(e)</strong>
+                                <small class="option-sub">L'absence de cette fonctionnalité ne me dérangerait pas du
+                                    tout</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Q4 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">4</span>
+                    Quel système de progression préférez-vous pour GreenPath ?
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="progression_system" id="ps1"
+                            value="Quêtes classiques + quêtes personnalisées">
+                        <label class="option-label" for="ps1">
+                            <i class="fa-solid fa-scroll option-icon"></i>
+                            <div>
+                                <strong>Quêtes classiques + personnalisées</strong>
+                                <small class="option-sub">Missions fixes de l'app + vos propres défis créés</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="progression_system" id="ps2"
+                            value="Mondes journaliers (daily worlds)">
+                        <label class="option-label" for="ps2">
+                            <i class="fa-solid fa-globe option-icon"></i>
+                            <div>
+                                <strong>Mondes journaliers (Daily Worlds)</strong>
+                                <small class="option-sub">Un nouveau thème/monde de missions chaque jour</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="progression_system" id="ps3"
+                            value="Progression par monde (débloqué progressivement)">
+                        <label class="option-label" for="ps3">
+                            <i class="fa-solid fa-map option-icon"></i>
+                            <div>
+                                <strong>Progression par monde</strong>
+                                <small class="option-sub">Des mondes à débloquer progressivement selon vos
+                                    succès</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-buttons-triple">
+                <a href="page1.html" class="btn btn-secondary" onclick="saveAndNext(event,'page1.html')">
+                    <i class="fa-solid fa-arrow-left"></i> Retour
+                </a>
+                <button class="btn-validate" id="validateBtn" onclick="showConfirmOverlay(event)">
+                    <i class="fa-solid fa-check"></i> Valider
+                </button>
+                <a href="page3.html" class="btn btn-primary" onclick="saveAndNext(event,'page3.html')">
+                    Suivant <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="page-dots">
+            <div class="dot"></div>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script>
+        // Handle conditional visibility on restore
+        document.addEventListener('DOMContentLoaded', function () {
+            var forestNo = document.getElementById('forest_no');
+            var shopNo = document.getElementById('shop_no');
+            if (forestNo && forestNo.checked) toggleConditional('forest_why_no', true);
+            if (shopNo && shopNo.checked) toggleConditional('shop_why_no', true);
+
+            // Add change listeners to radio groups
+            document.querySelectorAll('input[name="forest_like"]').forEach(function (r) {
+                r.addEventListener('change', function () {
+                    toggleConditional('forest_why_no', r.value === 'Non, pas convaincu(e)' && r.checked);
+                });
+            });
+            document.querySelectorAll('input[name="shop_like"]').forEach(function (r) {
+                r.addEventListener('change', function () {
+                    toggleConditional('shop_why_no', r.value === 'Non, pas convaincu(e)' && r.checked);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

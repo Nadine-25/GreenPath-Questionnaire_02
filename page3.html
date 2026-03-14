@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenPath – Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="confetti-container" id="confetti"></div>
+
+    <!-- CONFIRMATION OVERLAY -->
+    <div id="confirm-overlay">
+        <div class="thankyou-card-wrapper">
+            <div class="card thankyou-card">
+                <div class="confirm-icon">
+                    <i class="fa-solid fa-circle-question"></i>
+                </div>
+                <h2 class="overlay-title">Valider et terminer ?</h2>
+                <p class="overlay-text">
+                    C'est la dernière page !<br>
+                    Vos réponses finales seront envoyées. Merci !
+                </p>
+                <div class="action-buttons">
+                    <button class="action-btn btn-continue" onclick="confirmValidate()">
+                        <i class="fa-solid fa-paper-plane"></i> Envoyer tout
+                    </button>
+                    <button class="action-btn btn-done" onclick="closeConfirmOverlay()">
+                        <i class="fa-solid fa-arrow-left"></i> Continuer à remplir
+                    </button>
+                    <button class="action-btn btn-quit" onclick="quitApp()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Quitter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- THANKYOU OVERLAY -->
+    <div id="thankyou-overlay">
+        <div class="thankyou-card-wrapper">
+            <div class="card thankyou-card">
+                <div class="check-ring">
+                    <svg viewBox="0 0 50 50">
+                        <polyline points="10,26 21,37 40,14" />
+                    </svg>
+                </div>
+                <h2 class="overlay-title">Merci beaucoup !!</h2>
+                <p class="overlay-text">
+                    Votre feedback est précieux pour nous !<br>
+                    Vous nous aidez à faire de GreenPath une app encore meilleure.
+                </p>
+                <div class="xp-earned">
+                    <i class="fa-solid fa-trophy"></i> Questionnaire terminé !
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn btn-done" onclick="closeOverlay()">
+                        <i class="fa-solid fa-check"></i> Terminé
+                    </button>
+                    <button class="action-btn btn-quit" onclick="quitApp()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Quitter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE -->
+    <div class="page-wrapper">
+        <div class="header">
+            <div class="logo-area">
+                <img id="mascot_sleeping" alt="mascot" src="assets/mascot_sleeping.png">
+                <h1 class="app-title">GreenPath</h1>
+            </div>
+            <p class="app-subtitle"><i class="fa-solid fa-seedling"></i> Donnez votre avis sur nos interfaces !</p>
+        </div>
+
+        <img id="piroutte" src="assets/piroutte_transparent.gif" alt="mascot">
+
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Page 3 / 3 : Mécaniques de rétention et Avis Global</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" style="width:100%;"></div>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <!-- SECTION : MÉCANIQUE STREAK / MONDE -->
+            <div class="section-header">
+                <i class="fa-solid fa-fire section-icon" style="color:var(--pink-accent);"></i>
+                <div class="section-number">1</div>
+                <h2 class="section-title">Mécaniques de Rétention</h2>
+            </div>
+            <p class="section-desc">
+                Ces questions portent sur des mécaniques de jeu un peu risquées — soyez honnête, votre avis compte
+                vraiment !
+            </p>
+
+            <!-- Q1 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">1</span>
+                    Si vous découvriez que le monde repart de zéro (retour au Monde 1) chaque jour ou chaque semaine,
+                    arrêteriez-vous d'utiliser l'app ?
+                    <small class="hint-text">Ex : votre progression de monde se réinitialise régulièrement</small>
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="world_reset" id="wr_stop" value="Oui, j'arrêterais immédiatement">
+                        <label class="option-label" for="wr_stop">
+                            <i class="fa-solid fa-person-running option-icon" style="color:var(--pink-accent);"></i>
+                            <div>
+                                <strong>Oui, j'arrêterais</strong>
+                                <small class="option-sub">La réinitialisation serait rédhibitoire pour moi</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="world_reset" id="wr_maybe"
+                            value="Peut-être, ça dépend de la récompense">
+                        <label class="option-label" for="wr_maybe">
+                            <i class="fa-solid fa-scale-balanced option-icon" style="color:var(--coin-yellow);"></i>
+                            <div>
+                                <strong>Peut-être, ça dépend</strong>
+                                <small class="option-sub">Si les récompenses sont bonnes, ça peut aller</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="world_reset" id="wr_no" value="Non, ça me motive à recommencer">
+                        <label class="option-label" for="wr_no">
+                            <i class="fa-solid fa-arrows-rotate option-icon" style="color:var(--teal-dark);"></i>
+                            <div>
+                                <strong>Non, ça me motive !</strong>
+                                <small class="option-sub">Recommencer est motivant, comme un nouveau départ</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="world_reset" id="wr_indiff"
+                            value="Je m'en fiche, je joue pour les missions">
+                        <label class="option-label" for="wr_indiff">
+                            <i class="fa-solid fa-minus option-icon"></i>
+                            <div>
+                                <strong>Indifférent(e)</strong>
+                                <small class="option-sub">Je joue surtout pour les missions, pas pour le monde</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Q2 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">2</span>
+                    Que pensez-vous d'un système où une plante de votre jardin meurt aléatoirement si vous perdez votre
+                    streak ?
+                    <small class="hint-text">Exemple : 3 jours sans compléter de missions → une plante disparaît de
+                        votre jardin</small>
+                </label>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" name="plant_death" id="pd_love"
+                            value="J'adore - ça me motive à ne pas briser mon streak">
+                        <label class="option-label" for="pd_love">
+                            <i class="fa-solid fa-fire option-icon" style="color:var(--pink-accent);"></i>
+                            <div>
+                                <strong>J'adore l'idée !</strong>
+                                <small class="option-sub">La menace me motive à maintenir mon streak</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="plant_death" id="pd_ok"
+                            value="Ça peut aller si c'est avertissement avant">
+                        <label class="option-label" for="pd_ok">
+                            <i class="fa-solid fa-bell option-icon" style="color:var(--coin-yellow);"></i>
+                            <div>
+                                <strong>Pourquoi pas, si on est prévenu</strong>
+                                <small class="option-sub">Avec un avertissement avant la mort de la plante</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="plant_death" id="pd_no"
+                            value="Non - trop punitif, je désinstallerais">
+                        <label class="option-label" for="pd_no">
+                            <i class="fa-solid fa-trash option-icon" style="color:var(--pink-accent);"></i>
+                            <div>
+                                <strong>Non, c'est trop punitif</strong>
+                                <small class="option-sub">Je désinstallerais si mes plantes mouraient</small>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="plant_death" id="pd_indiff"
+                            value="Indifférent(e) - je ne suis pas attaché à mes plantes">
+                        <label class="option-label" for="pd_indiff">
+                            <i class="fa-solid fa-minus option-icon"></i>
+                            <div>
+                                <strong>Indifférent(e)</strong>
+                                <small class="option-sub">Je ne suis pas très attaché(e) à mes plantes
+                                    virtuelles</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- SECTION : FONCTIONNALITÉ PRÉFÉRÉE + AVIS GLOBAL -->
+            <div class="section-header" style="margin-top:8px;">
+                <i class="fa-solid fa-star section-icon" style="color:var(--coin-yellow);"></i>
+                <div class="section-number">2</div>
+                <h2 class="section-title">Fonctionnalité Préférée et Avis Global</h2>
+            </div>
+            <p class="section-desc">
+                Dernières questions — dites-nous ce que vous aimez le plus et partagez votre avis général sur GreenPath
+                !
+            </p>
+
+            <!-- Q3 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">3</span>
+                    Quelle est la fonctionnalité qui vous attire le plus dans GreenPath ?
+                </label>
+                <div class="options-grid two-col">
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_garden" value="Jardin virtuel">
+                        <label class="option-label" for="ff_garden">
+                            <i class="fa-solid fa-tree option-icon"></i> Jardin virtuel
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_missions" value="Missions gamifiées">
+                        <label class="option-label" for="ff_missions">
+                            <i class="fa-solid fa-flag option-icon"></i> Missions gamifiées
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_shop" value="Boutique de plantes">
+                        <label class="option-label" for="ff_shop">
+                            <i class="fa-solid fa-store option-icon"></i> Boutique de plantes
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_progress" value="Suivi de progression">
+                        <label class="option-label" for="ff_progress">
+                            <i class="fa-solid fa-chart-line option-icon"></i> Suivi de progression
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_xp" value="Système XP et Coins">
+                        <label class="option-label" for="ff_xp">
+                            <i class="fa-solid fa-coins option-icon"></i> Système XP et Coins
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_social" value="Aspect social (leaderboard)">
+                        <label class="option-label" for="ff_social">
+                            <i class="fa-solid fa-users option-icon"></i> Aspect social et leaderboard
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_custom" value="Missions personnalisées">
+                        <label class="option-label" for="ff_custom">
+                            <i class="fa-solid fa-wand-magic-sparkles option-icon"></i> Missions personnalisées
+                        </label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" name="fav_feature" id="ff_streak" value="Système de streak">
+                        <label class="option-label" for="ff_streak">
+                            <i class="fa-solid fa-fire option-icon"></i> Système de streak
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Q4 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">4</span>
+                    Comment évaluez-vous l'ergonomie globale des interfaces GreenPath ?
+                </label>
+                <div class="rating-group" id="rating_ergo">
+                    <span class="rating-label-min">Très difficile</span>
+                    <div class="rating-stars">
+                        <input type="radio" name="ergo_rating" id="er1" value="1"><label for="er1" class="star-label"><i
+                                class="fa-solid fa-star"></i></label>
+                        <input type="radio" name="ergo_rating" id="er2" value="2"><label for="er2" class="star-label"><i
+                                class="fa-solid fa-star"></i></label>
+                        <input type="radio" name="ergo_rating" id="er3" value="3"><label for="er3" class="star-label"><i
+                                class="fa-solid fa-star"></i></label>
+                        <input type="radio" name="ergo_rating" id="er4" value="4"><label for="er4" class="star-label"><i
+                                class="fa-solid fa-star"></i></label>
+                        <input type="radio" name="ergo_rating" id="er5" value="5"><label for="er5" class="star-label"><i
+                                class="fa-solid fa-star"></i></label>
+                    </div>
+                    <span class="rating-label-max">Très intuitif !</span>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Q5 -->
+            <div class="question-group">
+                <label class="question-label">
+                    <span class="question-num">5</span>
+                    Avis général sur l'ergonomie, le thème et le design. Des critiques ou attentes à partager ?
+                </label>
+                <textarea name="general_comments" class="styled-textarea"
+                    placeholder="Tout commentaire est le bienvenu !"></textarea>
+            </div>
+
+            <div class="nav-buttons-triple">
+                <a href="page2.html" class="btn btn-secondary" onclick="saveAndNext(event,'page2.html')">
+                    <i class="fa-solid fa-arrow-left"></i> Retour
+                </a>
+                <button class="btn-validate" id="validateBtn" onclick="showConfirmOverlay(event)">
+                    <i class="fa-solid fa-paper-plane"></i> Envoyer
+                </button>
+                <span class="nav-placeholder">
+                    Fin <i class="fa-solid fa-seedling"></i>
+                </span>
+            </div>
+        </div>
+
+        <div class="page-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot active"></div>
+        </div>
+    </div>
+
+    <script src="shared.js"></script>
+</body>
+
+</html>
