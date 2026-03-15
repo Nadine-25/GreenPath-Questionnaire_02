@@ -1,4 +1,4 @@
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz69gwwtLz7Qq4WJCSbR-guMIz0HeABi-RS6uYWAUHZFN5Xq1Ic192-PtJ-6MgmPTii/exec';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbwaJFCo7iQTEPYRb47FaarO_DLK7z-rylYxvQYq_qfgMrXCi2xBKDWbFMi7qovIWyvD/exec';
 
 const confettiColors = ['#6dbf9e','#f0c040','#d46895','#6899cc','#a8d8c0','#f5edd6','#b8895a'];
 
