@@ -1,33 +1,6 @@
-// ⚠️ REMPLACEZ CETTE URL par votre propre Google Apps Script URL
-const SHEET_URL = 'VOTRE_GOOGLE_APPS_SCRIPT_URL_ICI';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbz69gwwtLz7Qq4WJCSbR-guMIz0HeABi-RS6uYWAUHZFN5Xq1Ic192-PtJ-6MgmPTii/exec';
 
 const confettiColors = ['#6dbf9e','#f0c040','#d46895','#6899cc','#a8d8c0','#f5edd6','#b8895a'];
-
-// ── FIX 3 : Session management ──────────────────────────────
-// sessionStorage est effacé quand l'onglet se ferme.
-// On efface les réponses seulement quand l'utilisateur arrive FRAÎCHEMENT sur page1.
-function initSession() {
-    const isPage1 = window.location.pathname.includes('page1');
-    const hasActiveSession = sessionStorage.getItem('gp_session_active');
-    if (isPage1 && !hasActiveSession) {
-        localStorage.removeItem('gp_responses');
-        localStorage.removeItem('gp_coins');
-        localStorage.removeItem('gp_row_id');
-        sessionStorage.setItem('gp_session_active', 'true');
-    }
-}
-
-// ── FIX 4 : Row ID unique par session ───────────────────────
-// Toutes les validations envoient ce même row_id →
-// le script Google met à jour la même ligne au lieu d'en créer une nouvelle.
-function getOrCreateRowId() {
-    let rowId = localStorage.getItem('gp_row_id');
-    if (!rowId) {
-        rowId = 'gp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('gp_row_id', rowId);
-    }
-    return rowId;
-}
 
 // ── Confetti ──────────────────────────────────────────────
 function launchConfetti() {
@@ -54,77 +27,56 @@ function addRipple(btn, e) {
     const r = document.createElement('span');
     r.className = 'ripple';
     const size = Math.max(rect.width, rect.height) * 2;
-    r.style.cssText = 'width:'+size+'px;height:'+size+'px;'
-        +'left:'+(e.clientX - rect.left - size/2)+'px;'
-        +'top:'+(e.clientY - rect.top - size/2)+'px';
+    r.style.cssText = `width:${size}px;height:${size}px;
+        left:${e.clientX - rect.left - size/2}px;
+        top:${e.clientY - rect.top  - size/2}px`;
     btn.appendChild(r);
-    setTimeout(function() { r.remove(); }, 600);
+    setTimeout(() => r.remove(), 600);
 }
 
-// ── FIX 2 : Star rating — JS uniquement, sans CSS conflictuel ──
+// ── Star rating interactive behavior ─────────────────────
 function initStarRatings() {
     document.querySelectorAll('.rating-stars').forEach(function(group) {
-        var labels = Array.from(group.querySelectorAll('.star-label'));
-        var inputs = Array.from(group.querySelectorAll('input[type="radio"]'));
-
-        function setLit(upToIdx) {
-            labels.forEach(function(l, i) {
-                l.classList.toggle('lit', i <= upToIdx);
-                l.classList.remove('hovered');
-            });
-        }
-
-        function restoreFromChecked() {
-            var checked = group.querySelector('input[type="radio"]:checked');
-            if (checked) {
-                setLit(parseInt(checked.value) - 1);
-            } else {
-                labels.forEach(function(l) {
-                    l.classList.remove('lit', 'hovered');
-                });
-            }
-        }
+        const labels = group.querySelectorAll('.star-label');
+        const inputs = group.querySelectorAll('input[type="radio"]');
 
         labels.forEach(function(label, idx) {
-            // Hover desktop
             label.addEventListener('mouseenter', function() {
                 labels.forEach(function(l, i) {
-                    l.classList.remove('lit');
-                    l.classList.toggle('hovered', i <= idx);
+                    l.style.color = i <= idx ? 'var(--coin-yellow)' : 'var(--cream-dark)';
+                    l.style.transform = i === idx ? 'scale(1.2)' : i < idx ? 'scale(1.05)' : 'scale(1)';
                 });
             });
-            label.addEventListener('mouseleave', restoreFromChecked);
 
-            // Click (desktop)
-            label.addEventListener('click', function() {
-                if (inputs[idx]) {
-                    inputs[idx].checked = true;
-                }
-                setLit(idx);
+            label.addEventListener('mouseleave', function() {
+                updateStarDisplay(group);
             });
 
-            // Touch (mobile) — empêcher le double-fire click+touch
-            label.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                if (inputs[idx]) {
-                    inputs[idx].checked = true;
-                }
-                setLit(idx);
+            label.addEventListener('click', function() {
+                setTimeout(function() { updateStarDisplay(group); }, 10);
             });
         });
 
-        // Affichage initial si une valeur est déjà cochée
-        restoreFromChecked();
+        inputs.forEach(function(input) {
+            input.addEventListener('change', function() {
+                updateStarDisplay(group);
+            });
+        });
     });
 }
 
 function updateStarDisplay(group) {
-    var labels = Array.from(group.querySelectorAll('.star-label'));
-    var checked = group.querySelector('input[type="radio"]:checked');
-    var val = checked ? parseInt(checked.value) - 1 : -1;
+    const labels = group.querySelectorAll('.star-label');
+    const checked = group.querySelector('input[type="radio"]:checked');
+    const checkedVal = checked ? parseInt(checked.value) : 0;
     labels.forEach(function(l, i) {
-        l.classList.toggle('lit', i <= val);
-        l.classList.remove('hovered');
+        if (i < checkedVal) {
+            l.style.color = 'var(--coin-yellow)';
+            l.style.transform = 'scale(1)';
+        } else {
+            l.style.color = 'var(--cream-dark)';
+            l.style.transform = 'scale(1)';
+        }
     });
 }
 
@@ -161,8 +113,9 @@ function restaurerReponses() {
 
     Object.keys(data).forEach(function(name) {
         try {
-            var radio = document.querySelector('input[type="radio"][name="'+name+'"][value="'+CSS.escape(data[name])+'"]');
-            if (radio) { radio.checked = true; }
+            var escaped = CSS.escape(data[name]);
+            var radio = document.querySelector('input[type="radio"][name="'+name+'"][value="'+escaped+'"]');
+            if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); }
         } catch(e) {}
 
         if (typeof data[name] === 'string') {
@@ -174,39 +127,37 @@ function restaurerReponses() {
             });
         }
 
-        var txt = document.querySelector(
-            'input[type="text"][name="'+name+'"],' +
-            'input[type="email"][name="'+name+'"],' +
-            'textarea[name="'+name+'"]'
-        );
+        var txt = document.querySelector('input[type="text"][name="'+name+'"], input[type="email"][name="'+name+'"], textarea[name="'+name+'"]');
         if (txt) txt.value = data[name];
     });
 
-    // Refresh star displays after restore
     document.querySelectorAll('.rating-stars').forEach(function(group) {
         updateStarDisplay(group);
     });
 }
 
-// ── FIX 4 : Envoi vers Google Sheets avec row_id ──────────
+// ── Envoi vers Google Sheets ──────────────────────────────
 function envoyerReponses(btn, xp, nextOverlay) {
     var data = collecterReponses();
-    data['row_id']    = getOrCreateRowId();
+
+    // Ajouter timestamp
     data['timestamp'] = new Date().toISOString();
+    data['page'] = window.location.pathname.split('/').pop();
 
     fetch(SHEET_URL, {
         method: 'POST',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(data)
-    }).catch(function(err) { console.warn('Envoi:', err); });
+    }).catch(function(err) {
+        console.warn('Envoi échoué (mode no-cors normal):', err);
+    });
 
     btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Réponses envoyées !';
     terminerValidation(btn, xp, nextOverlay);
 }
 
 function terminerValidation(btn, xp, showOverlay) {
-    var coins = parseInt(localStorage.getItem('gp_coins') || '0') + xp;
+    let coins = parseInt(localStorage.getItem('gp_coins') || '0') + xp;
     localStorage.setItem('gp_coins', coins);
     launchConfetti();
     setTimeout(function() {
@@ -225,7 +176,7 @@ function showConfirmOverlay(e) {
 }
 
 // ── Confirm Validate ──────────────────────────────────────
-var currentBtn = null;
+let currentBtn = null;
 function confirmValidate() {
     currentBtn = document.getElementById('validateBtn');
     currentBtn.dataset.originalLabel = currentBtn.innerHTML;
@@ -237,7 +188,7 @@ function confirmValidate() {
 
 // ── Close Confirm Overlay ─────────────────────────────────
 function closeConfirmOverlay() {
-    var o = document.getElementById('confirm-overlay');
+    const o = document.getElementById('confirm-overlay');
     o.style.transition = 'opacity 0.35s';
     o.style.opacity = '0';
     setTimeout(function() {
@@ -248,7 +199,7 @@ function closeConfirmOverlay() {
 
 // ── Fermer overlay ────────────────────────────────────────
 function closeOverlay() {
-    var o = document.getElementById('thankyou-overlay');
+    const o = document.getElementById('thankyou-overlay');
     o.style.transition = 'opacity 0.35s';
     o.style.opacity = '0';
     setTimeout(function() {
@@ -257,12 +208,8 @@ function closeOverlay() {
     }, 380);
 }
 
-// ── Quitter — reset complet ───────────────────────────────
+// ── Quitter ───────────────────────────────────────────────
 function quitApp() {
-    sessionStorage.removeItem('gp_session_active');
-    localStorage.removeItem('gp_responses');
-    localStorage.removeItem('gp_coins');
-    localStorage.removeItem('gp_row_id');
     window.close();
     setTimeout(function() { window.location.href = 'about:blank'; }, 300);
 }
@@ -271,7 +218,7 @@ function quitApp() {
 function saveAndNext(e, nextPage) {
     e.preventDefault();
     collecterReponses();
-    var card = document.querySelector('.card');
+    const card = document.querySelector('.card');
     card.style.transition = 'all 0.3s ease';
     card.style.opacity = '0';
     card.style.transform = 'translateX(-30px)';
@@ -280,9 +227,9 @@ function saveAndNext(e, nextPage) {
 
 // ── Champs conditionnels ──────────────────────────────────
 function toggleConditional(id, show) {
-    var field = document.getElementById(id);
+    const field = document.getElementById(id);
     if (!field) return;
-    var input = field.querySelector('input, textarea');
+    const input = field.querySelector('input, textarea');
     if (show) { field.classList.add('visible'); }
     else { field.classList.remove('visible'); if (input) input.value = ''; }
 }
@@ -293,7 +240,6 @@ function toggleField(fieldId, checkbox) {
 
 // ── Init au chargement ────────────────────────────────────
 document.addEventListener('DOMContentLoaded', function() {
-    initSession();
     restaurerReponses();
     initStarRatings();
 });
