@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenPath – Questionnaire</title>
+
+    <!-- ══════════════════════════════════════════════════════
+         RESET STORAGE — s'exécute AVANT tout le reste
+         Efface les réponses à chaque nouvelle visite sur page1
+         SAUF si on revient en arrière depuis page2 (?back=1)
+    ══════════════════════════════════════════════════════ -->
+    <script>
+        (function() {
+            var isBack = window.location.search.indexOf('back=1') !== -1;
+            if (!isBack) {
+                localStorage.removeItem('gp_responses');
+                localStorage.removeItem('gp_coins');
+                localStorage.removeItem('gp_row_id');
+            }
+        })();
+    </script>
+
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -165,25 +182,21 @@
                 <h2 class="section-title">Page d'Accueil</h2>
             </div>
             <p class="section-desc">
-                Voici 3 propositions pour la page d'accueil de GreenPath : la première chose que vous verrez en ouvrant
-                l'app !
+                Voici 3 propositions pour la page d'accueil de GreenPath : la première chose que vous verrez en ouvrant l'app !
             </p>
 
             <div class="images-grid-labeled">
                 <div class="mockup-item">
                     <img src="page1.png" alt="Home Variante 1" class="mockup-image">
-                    <div class="mockup-caption"><i class="fa-solid fa-calendar-days"></i> V1 — Calendrier principal
-                    </div>
+                    <div class="mockup-caption"><i class="fa-solid fa-calendar-days"></i> V1 — Calendrier principal</div>
                 </div>
                 <div class="mockup-item">
                     <img src="page2.png" alt="Home Variante 2" class="mockup-image">
-                    <div class="mockup-caption"><i class="fa-solid fa-list-check"></i> V2 — Étapes du monde actuel et
-                        progression </div>
+                    <div class="mockup-caption"><i class="fa-solid fa-list-check"></i> V2 — Étapes du monde actuel et progression</div>
                 </div>
                 <div class="mockup-item">
                     <img src="page3.png" alt="Home Variante 3" class="mockup-image">
-                    <div class="mockup-caption"><i class="fa-solid fa-chart-line"></i> V3 — Stats,Mood et humeur du jour
-                    </div>
+                    <div class="mockup-caption"><i class="fa-solid fa-chart-line"></i> V3 — Stats, Mood et humeur du jour</div>
                 </div>
             </div>
 
@@ -205,13 +218,12 @@
                         </label>
                     </div>
                     <div class="option-item">
-                        <input type="radio" name="home_prefer" id="home2"
-                            value="V2 - Statistiques et étapes des mondes">
+                        <input type="radio" name="home_prefer" id="home2" value="V2 - Statistiques et étapes des mondes">
                         <label class="option-label" for="home2">
                             <i class="fa-solid fa-list-check option-icon"></i>
                             <div>
                                 <strong>Variante 2</strong>
-                                <small class="option-sub">Statistiques + étapes des mondes </small>
+                                <small class="option-sub">Statistiques + étapes des mondes</small>
                             </div>
                         </label>
                     </div>
@@ -221,8 +233,7 @@
                             <i class="fa-solid fa-chart-line option-icon"></i>
                             <div>
                                 <strong>Variante 3</strong>
-                                <small class="option-sub">Stats de progression + Mood et humeur du jour
-                                    uniquement</small>
+                                <small class="option-sub">Stats de progression + Mood et humeur du jour uniquement</small>
                             </div>
                         </label>
                     </div>
