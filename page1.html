@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
     <div class="confetti-container" id="confetti"></div>
 
@@ -72,17 +70,15 @@
     <div class="page-wrapper">
         <div class="header">
             <div class="logo-area">
-                <img id="mascot_sleeping" alt="mascot" src="mascot_sleeping.png">
+                <i class="fa-solid fa-seedling" style="font-size:2.2rem;color:var(--cream);"></i>
                 <h1 class="app-title">GreenPath</h1>
             </div>
             <p class="app-subtitle"><i class="fa-solid fa-seedling"></i> Donnez votre avis sur nos interfaces !</p>
         </div>
 
-        <img id="piroutte" src="piroutte_transparent.gif" alt="mascot">
-
         <div class="progress-container">
             <div class="progress-label">
-                <span>Page 1 / 3 : Logo et Page d'accueil</span>
+                <span>Page 1 / 3 — Logo &amp; Page d'accueil</span>
             </div>
             <div class="progress-track">
                 <div class="progress-fill" style="width:33%;"></div>
@@ -103,15 +99,15 @@
 
             <div class="images-grid-labeled">
                 <div class="mockup-item">
-                    <img src="logo_no_detail.png" alt="Logo Variante 1" class="mockup-image">
+                    <img src="assets/logo_no_detail.png" alt="Logo Variante 1" class="mockup-image">
                     <div class="mockup-caption"><i class="fa-solid fa-leaf"></i> Logo V1 — Épuré</div>
                 </div>
                 <div class="mockup-item">
-                    <img src="logo_detail.png" alt="Logo Variante 2" class="mockup-image">
+                    <img src="assets/logo_detail.png" alt="Logo Variante 2" class="mockup-image">
                     <div class="mockup-caption"><i class="fa-solid fa-leaf"></i> Logo V2 — Détaillé</div>
                 </div>
                 <div class="mockup-item">
-                    <img src="logo_super_detail_transparent.png" alt="Logo Variante 3" class="mockup-image">
+                    <img src="assets/logo_super_detail_transparent.png" alt="Logo Variante 3" class="mockup-image">
                     <div class="mockup-caption"><i class="fa-solid fa-leaf"></i> Logo V3 — Illustré</div>
                 </div>
             </div>
@@ -165,24 +161,21 @@
                 <h2 class="section-title">Page d'Accueil</h2>
             </div>
             <p class="section-desc">
-                Voici 3 propositions pour la page d'accueil de GreenPath : la première chose que vous verrez en ouvrant
-                l'app !
+                Voici 3 propositions pour la page d'accueil de GreenPath : la première chose que vous verrez en ouvrant l'app !
             </p>
 
             <div class="images-grid-labeled">
                 <div class="mockup-item">
-                    <img src="page1.png" alt="Home Variante 1" class="mockup-image">
-                    <div class="mockup-caption"><i class="fa-solid fa-calendar-days"></i> V1 — Calendrier principal
-                    </div>
+                    <img src="assets/page1.png" alt="Home Variante 1" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-calendar-days"></i> V1 — Calendrier principal</div>
                 </div>
                 <div class="mockup-item">
-                    <img src="page2.png" alt="Home Variante 2" class="mockup-image">
-                    <div class="mockup-caption"><i class="fa-solid fa-list-check"></i> V2 — Étapes et mondes
-                    </div>
+                    <img src="assets/page2.png" alt="Home Variante 2" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-list-check"></i> V2 — Étapes &amp; Mood du jour</div>
                 </div>
                 <div class="mockup-item">
-                    <img src="page3.png" alt="Home Variante 3" class="mockup-image">
-                    <div class="mockup-caption"><i class="fa-solid fa-chart-line"></i> V3 — Stats et Mood du jour</div>
+                    <img src="assets/page3.png" alt="Home Variante 3" class="mockup-image">
+                    <div class="mockup-caption"><i class="fa-solid fa-chart-line"></i> V3 — Stats &amp; Mood</div>
                 </div>
             </div>
 
@@ -204,13 +197,12 @@
                         </label>
                     </div>
                     <div class="option-item">
-                        <input type="radio" name="home_prefer" id="home2"
-                            value="V2 - Statistiques et étapes des mondes">
+                        <input type="radio" name="home_prefer" id="home2" value="V2 - Statistiques et étapes des mondes">
                         <label class="option-label" for="home2">
                             <i class="fa-solid fa-list-check option-icon"></i>
                             <div>
                                 <strong>Variante 2</strong>
-                                <small class="option-sub">Statistiques + étapes des mondes</small>
+                                <small class="option-sub">Statistiques + étapes des mondes + Mood du jour</small>
                             </div>
                         </label>
                     </div>
@@ -220,8 +212,7 @@
                             <i class="fa-solid fa-chart-line option-icon"></i>
                             <div>
                                 <strong>Variante 3</strong>
-                                <small class="option-sub">Stats de progression + humeur et mood du jour
-                                    uniquement</small>
+                                <small class="option-sub">Stats de progression + humeur du jour uniquement</small>
                             </div>
                         </label>
                     </div>
@@ -309,11 +300,6 @@
         </div>
     </div>
 
-    <script>
-        localStorage.removeItem('gp_responses');
-        localStorage.removeItem('gp_coins');
-    </script>
     <script src="shared.js"></script>
 </body>
-
 </html>

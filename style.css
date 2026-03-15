@@ -394,35 +394,26 @@ body::after {
     opacity: 0;
     width: 0;
     height: 0;
+    pointer-events: none;
 }
 
 .star-label {
-    font-size: 1.7rem;
+    font-size: 1.9rem;
     color: var(--cream-dark);
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: color 0.15s ease, transform 0.15s ease;
     filter: drop-shadow(1px 1px 0 var(--brown-light));
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
-.star-label:hover,
-.star-label:hover ~ .star-label {
+.star-label.lit {
     color: var(--coin-yellow);
-    transform: scale(1.15);
 }
 
-/* Fill stars up to the checked one */
-.rating-stars:has(input:checked) .star-label { color: var(--cream-dark); }
-.rating-stars input:checked ~ .star-label { color: var(--cream-dark) !important; }
-.rating-stars input:nth-child(1):checked ~ label:nth-child(n+2) { color: var(--cream-dark) !important; }
-
-/* Simpler star fill approach using sibling CSS */
-.rating-stars label { color: var(--cream-dark); transition: color 0.15s; }
-.rating-stars input:checked + label,
-.rating-stars input:checked + label ~ label { color: var(--cream-dark); }
-
-/* JS-driven stars via data attribute — keep fallback CSS too */
-.star-label.active {
-    color: var(--coin-yellow) !important;
+.star-label.hovered {
+    color: var(--coin-yellow);
+    transform: scale(1.2);
 }
 
 /* ── Divider ── */
@@ -884,9 +875,24 @@ body::after {
         gap: 8px;
     }
 
+    /* Images: une seule par ligne, centrée, grande et bien visible */
     .images-grid,
     .images-grid-labeled {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+        max-width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mockup-image {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .mockup-item {
+        align-items: center;
     }
 
     #piroutte {
